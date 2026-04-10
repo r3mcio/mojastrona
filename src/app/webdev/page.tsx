@@ -21,7 +21,12 @@ export default function WebdevPage() {
               Tworzę wszystko, od minimalistycznych stron-wizytówek (tzw. one pager), przez rozbudowane serwisy firmowe, po dedykowane panele dla Twoich pracowników. Dobry design to taki, którego użytkownik nie zauważa, bo intuicyjnie potrafi zrealizować swój cel – kupić, zadzwonić, wysłać zapytanie.
             </p>
             <div style={{ marginTop: "2rem" }}>
-              <Link href="/projects" className={styles.primaryButton}>
+              <Link href="/projects" className={styles.primaryButton} style={{ 
+                background: "linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(59, 130, 246, 0.1))",
+                borderColor: "rgba(59, 130, 246, 0.5)",
+                color: "#60a5fa",
+                boxShadow: "0 0 30px rgba(59, 130, 246, 0.2)"
+              }}>
                 Zobacz moje projekty webowe <ArrowRight size={16} />
               </Link>
             </div>

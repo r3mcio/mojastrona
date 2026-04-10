@@ -8,21 +8,24 @@ export default function ProjectsPage() {
       title: "Wirtualny Asystent Prawny",
       type: "Rozwiązanie AI",
       desc: "Narzędzie dla kancelarii pełniące rolę asystenta radcy prawnego. Przeszukuje zbiór zapisów o karach umownych i automatycznie generuje szkice odpowiedzi dla stałych klientów w powtarzalnych sprawach windykacyjnych.",
-      icon: <Bot size={24} color="var(--glow-ai)" />,
+      icon: <Bot size={24} color="#a855f7" />,
+      colorVal: "168, 85, 247",
       colSpan: "colSpan8"
     },
     {
       title: "Wizytówka Prywatnej Kliniki",
       type: "Web Development",
       desc: "Bardzo prosta i czytelna strona medyczna ułatwiająca dotarcie pacjentów z mobilną siatką rezerwacji i zintegrowanym cennikiem zabiegów.",
-      icon: <BriefcaseMedical size={24} color="var(--glow-webdev)" />,
+      icon: <BriefcaseMedical size={24} color="#3b82f6" />,
+      colorVal: "59, 130, 246",
       colSpan: "colSpan4"
     },
     {
       title: "Asystent Kategoryzacji Faktur",
       type: "Hybryda / Web + AI",
       desc: "Autorski system operacyjny używany w małym biurze rachunkowym. Inteligentny moduł sczytuje nienormatywne potwierdzenia pdf/zdjęcia i z dokładnością sięgającą 95% kategoryzuje wydatki. Szacowana oszczędność zespołu to kilkanaście godzin żmudnej pracy miesięcznie.",
-      icon: <LayoutTemplate size={24} color="var(--glow-projects)" />,
+      icon: <LayoutTemplate size={24} color="#10b981" />,
+      colorVal: "16, 185, 129",
       colSpan: "colSpan12"
     }
   ];
@@ -56,10 +59,10 @@ export default function ProjectsPage() {
             </div>
 
             <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <div style={{ padding: "0.75rem", background: "rgba(255,255,255,0.03)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)" }}>
+              <div style={{ padding: "0.75rem", background: `rgba(${proj.colorVal}, 0.1)`, borderRadius: "12px", border: `1px solid rgba(${proj.colorVal}, 0.25)`, boxShadow: `0 0 20px rgba(${proj.colorVal}, 0.15)` }}>
                 {proj.icon}
               </div>
-              <span style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+              <span style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", color: `rgb(${proj.colorVal})`, fontFamily: "var(--font-mono)", fontWeight: 600 }}>
                 {proj.type}
               </span>
             </div>

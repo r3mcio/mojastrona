@@ -39,7 +39,12 @@ export default function ContactPage() {
               </div>
 
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}>
-                <button type="button" className={styles.primaryButton}>
+                <button type="button" className={styles.primaryButton} style={{ 
+                  background: "linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(244, 63, 94, 0.1))",
+                  borderColor: "rgba(244, 63, 94, 0.5)",
+                  color: "#fb7185",
+                  boxShadow: "0 0 30px rgba(244, 63, 94, 0.2)"
+                }}>
                   Wyślij Wiadomość
                 </button>
               </div>

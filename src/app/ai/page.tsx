@@ -21,7 +21,7 @@ export default function AiSolutionsPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
               <div>
                 <h4 style={{ color: "var(--glow-ai)", marginBottom: "0.5rem" }}>Biura Rachunkowe</h4>
-                <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>Skanujesz wyciąg, a system sam przypisuje faktury do odpowiednich kategorii. Pracownik od księgowości oszczędza dzięsiątki godzin i koncentruje się jedynie na sprawdzaniu merytoryki.</p>
+                <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>Skanujesz wyciąg, a system sam przypisuje faktury do odpowiednich kategorii. Pracownik od księgowości oszczędza dziesiątki godzin i koncentruje się jedynie na sprawdzaniu merytoryki.</p>
               </div>
               <div>
                 <h4 style={{ color: "var(--glow-ai)", marginBottom: "0.5rem" }}>Firmy Prawnicze i Konsultingowe</h4>
@@ -29,7 +29,12 @@ export default function AiSolutionsPage() {
               </div>
             </div>
             <div style={{ marginTop: "2.5rem" }}>
-              <Link href="/projects" className={styles.primaryButton}>
+              <Link href="/projects" className={styles.primaryButton} style={{ 
+                background: "linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(139, 92, 246, 0.1))",
+                borderColor: "rgba(139, 92, 246, 0.5)",
+                color: "#a855f7",
+                boxShadow: "0 0 30px rgba(139, 92, 246, 0.2)"
+              }}>
                 Zobacz wdrożenia AI <ArrowRight size={16} />
               </Link>
             </div>
