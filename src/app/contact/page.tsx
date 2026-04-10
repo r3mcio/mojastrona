@@ -56,7 +56,7 @@ export default function ContactPage() {
         <div className={`${styles.bentoItem} ${styles.colSpan4}`} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           
           <div className={styles.glassPanel} style={{ padding: "2rem", flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <Phone size={24} color="var(--glow-contact)" style={{ marginBottom: "1rem" }} />
+            <Phone size={24} color="var(--glow-contact)" style={{ marginBottom: "1rem", flexShrink: 0 }} />
             <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.25rem" }}>Mój numer</div>
             <a 
               href="tel:+48530180701" 
@@ -67,15 +67,29 @@ export default function ContactPage() {
               530 180 701
             </a>
             <p style={{marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-secondary)"}}>Możesz śmiało zadzwonić.</p>
+            <a 
+              href="tel:+48530180701" 
+              className={styles.primaryButton} 
+              style={{ 
+                marginTop: "1rem", 
+                width: "100%", 
+                background: "linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(244, 63, 94, 0.1))",
+                borderColor: "rgba(244, 63, 94, 0.5)",
+                color: "#fb7185",
+                boxShadow: "0 0 30px rgba(244, 63, 94, 0.2)"
+              }}
+            >
+              <Phone size={16} /> Zadzwoń
+            </a>
           </div>
 
           <div className={styles.glassPanel} style={{ padding: "2rem", flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <FileText size={24} color="#10b981" style={{ marginBottom: "1rem" }} />
+            <FileText size={24} color="#10b981" style={{ marginBottom: "1rem", flexShrink: 0 }} />
             <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.5rem" }}>Rozliczenia na czysto</div>
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", marginBottom: "1rem", lineHeight: 1.5 }}>
               Transakcje projektowe oraz faktury VAT załatwiam bezpiecznie przez portal dla wykonawców Useme.
             </p>
-            <a href="https://useme.com" target="_blank" rel="noreferrer" className={`${styles.primaryButton} ${styles.usemeBtn}`} style={{ width: "100%" }}>
+            <a href="https://useme.com" target="_blank" rel="noreferrer" className={`${styles.primaryButton} ${styles.usemeBtn}`} style={{ width: "100%", textAlign: "center", lineHeight: "1.2", padding: "0.85rem 1rem" }}>
               Zobacz profil na Useme
             </a>
           </div>

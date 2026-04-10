@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import styles from "@/styles/navbar.module.css";
 
@@ -9,10 +10,26 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onContactClick, onSectionClick }: NavbarProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
+
+  const handleMobileNav = (index: number) => {
+    onSectionClick(index);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav className={styles.navbar} id="navbar">
       <div className={styles.left}>
-        <span className={styles.logo}>KL</span>
+        <button 
+          className={`${styles.logo} ${isMobileMenuOpen ? styles.logoActive : ''}`} 
+          onClick={toggleMobileMenu}
+          aria-label="Menu"
+          style={{ cursor: "pointer", padding: 0 }}
+        >
+          KL
+        </button>
         <div className={styles.logoInfo}>
           <span className={styles.logoName}>Kamil Libigocki</span>
           <span className={styles.logoRole}>Web &amp; AI</span>
@@ -59,6 +76,13 @@ export default function Navbar({ onContactClick, onSectionClick }: NavbarProps) 
           <span className={styles.contactDot} />
           Kontakt
         </Link>
+      </div>
+
+      <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ""}`}>
+        <button onClick={() => handleMobileNav(0)}>Web</button>
+        <button onClick={() => handleMobileNav(1)}>AI</button>
+        <button onClick={() => handleMobileNav(2)}>Projekty</button>
+        <button onClick={() => handleMobileNav(3)}>O Mnie</button>
       </div>
     </nav>
   );
