@@ -1,0 +1,254 @@
+/* ═══════════════════════════════════════════════
+   CAROUSEL CARD
+   ═══════════════════════════════════════════════ */
+
+.card {
+  position: absolute;
+  width: 420px;
+  height: 520px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-carousel);
+  will-change: transform, opacity;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: all var(--transition-carousel);
+}
+
+.cardActive .cardInner {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--glass-border-active);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 0 40px rgba(200, 220, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Background image/gradient for each card */
+.cardBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: opacity var(--transition-slow);
+}
+
+/* Card number watermark */
+.cardNumber {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  font-family: var(--font-mono);
+  font-size: 8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  transition: color var(--transition-slow);
+}
+
+.cardActive .cardNumber {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+/* Section label */
+.sectionLabel {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  z-index: 2;
+  transition: color var(--transition-base);
+}
+
+.cardActive .sectionLabel {
+  color: var(--text-secondary);
+}
+
+/* Card content area */
+.cardContent {
+  position: relative;
+  z-index: 2;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  margin-bottom: 1rem;
+  transition: background-color var(--transition-base);
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+  transition: opacity var(--transition-base);
+}
+
+.cardActive .cardTitle {
+  opacity: 1;
+}
+
+.cardSubtitle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all var(--transition-carousel);
+  line-height: 1.5;
+}
+
+.cardActive .cardSubtitle {
+  opacity: 1;
+  max-height: 100px;
+  margin-bottom: 1rem;
+}
+
+.discoverLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: all var(--transition-base);
+}
+
+.cardActive .discoverLink {
+  opacity: 1;
+  color: var(--text-secondary);
+}
+
+.discoverLink:hover {
+  color: var(--accent-primary);
+}
+
+.discoverArrow {
+  transition: transform var(--transition-fast);
+}
+
+.discoverLink:hover .discoverArrow {
+  transform: translateX(4px);
+}
+
+/* Card gradient overlays per section */
+.gradientWebdev {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15) 0%,
+    rgba(59, 130, 246, 0.03) 50%,
+    transparent 100%
+  );
+}
+
+.gradientAi {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.15) 0%,
+    rgba(139, 92, 246, 0.03) 50%,
+    transparent 100%
+  );
+}
+
+.gradientProjects {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15) 0%,
+    rgba(16, 185, 129, 0.03) 50%,
+    transparent 100%
+  );
+}
+
+.gradientAbout {
+  background: linear-gradient(
+    135deg,
+    rgba(6, 182, 212, 0.15) 0%,
+    rgba(6, 182, 212, 0.03) 50%,
+    transparent 100%
+  );
+}
+
+.gradientContact {
+  background: linear-gradient(
+    135deg,
+    rgba(244, 63, 94, 0.15) 0%,
+    rgba(244, 63, 94, 0.03) 50%,
+    transparent 100%
+  );
+}
+
+/* Icon decoration */
+.cardIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  z-index: 1;
+  opacity: 0.06;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+.cardActive .cardIcon {
+  opacity: 0.1;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    width: 340px;
+    height: 440px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 280px;
+    height: 400px;
+  }
+  
+  .cardNumber {
+    font-size: 5rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 260px;
+    height: 380px;
+  }
+}

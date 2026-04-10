@@ -1,66 +1,98 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState, useCallback, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
+import ParticleBackground from "@/components/ParticleBackground";
+import CentralBrand from "@/components/CentralBrand";
+import Carousel from "@/components/Carousel";
+
+const SECTIONS_MAP: Record<string, number> = {
+  webdev: 0,
+  ai: 1,
+  projects: 2,
+  about: 3,
+  contact: 4,
+};
+
+function HomeContent() {
+  const searchParams = useSearchParams();
+  const sectionQuery = searchParams.get("section");
+  const initialSection = sectionQuery && SECTIONS_MAP[sectionQuery] !== undefined ? SECTIONS_MAP[sectionQuery] : undefined;
+
+  const [targetSection, setTargetSection] = useState<number | undefined>(initialSection);
+  const [introPhase, setIntroPhase] = useState(0);
+
+  useEffect(() => {
+    // Jeżeli wracamy na stronę (jest parametr query), przyspieszmy intro żeby nie kazać na nowo czekać
+    const isReturning = !!initialSection;
+    if (isReturning) {
+      setIntroPhase(2);
+      return;
+    }
+
+    const t1 = setTimeout(() => setIntroPhase(1), 300);
+    const t2 = setTimeout(() => setIntroPhase(2), 1600);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [initialSection]);
+
+  const handleContactClick = useCallback(() => {
+    setTargetSection(4);
+  }, []);
+
+  const handleSectionClick = useCallback((index: number) => {
+    setTargetSection(index);
+  }, []);
+
+  return (
+    <main>
+      <ParticleBackground />
+
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={introPhase >= 1 ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Navbar
+          onContactClick={handleContactClick}
+          onSectionClick={handleSectionClick}
+        />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={
+          introPhase >= 2
+            ? { opacity: 0.45 }
+            : introPhase >= 1
+            ? { opacity: 1 }
+            : { opacity: 0 }
+        }
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <CentralBrand bright={introPhase < 2} />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 80 }}
+        animate={introPhase >= 2 ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        style={{ position: "relative", zIndex: 2 }}
+      >
+        <Carousel externalIndex={targetSection} />
+      </motion.div>
+    </main>
+  );
+}
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <Suspense fallback={<div style={{ backgroundColor: "#050507", width: "100vw", height: "100vh" }}></div>}>
+      <HomeContent />
+    </Suspense>
   );
 }

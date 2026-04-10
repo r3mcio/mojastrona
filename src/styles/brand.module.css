@@ -1,0 +1,37 @@
+/* ═══════════════════════════════════════════════
+   CENTRAL BRAND
+   ═══════════════════════════════════════════════ */
+
+.brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+}
+
+.brandText {
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 220, 255, 0.07);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: -webkit-text-stroke 1s ease;
+}
+
+.brandBright {
+  -webkit-text-stroke: 1.5px rgba(200, 220, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .brandText {
+    -webkit-text-stroke: 1px rgba(200, 220, 255, 0.05);
+  }
+}
