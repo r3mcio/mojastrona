@@ -61,12 +61,25 @@
   transform: translateX(-4px);
 }
 
+/* Desktop: show full text, hide short text */
+.backBtnDesktopText {
+  display: inline;
+}
+.backBtnMobileText {
+  display: none;
+}
+
 .pageLabel {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--text-muted);
+}
+
+/* ── Desktop-only page header ── */
+.desktopHeader {
+  display: block; /* shown on desktop */
 }
 
 /* ── Headings ── */
@@ -192,44 +205,69 @@
   .colSpan4, .colSpan8 { grid-column: span 6; }
 }
 
+/* ══════════════════════════════════════
+   MOBILE OVERRIDES (≤ 768px)
+══════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* ── Hide desktop layout, show mobile version via mobile.module.css ── */
+  /* ── Wrapper: adapt for mobile instead of hiding ── */
   .subpageWrapper {
-    display: none;
+    height: auto;
+    min-height: 100dvh;
+    max-height: none;
+    padding: calc(3.5rem + var(--safe-top)) 0 calc(5.5rem + var(--safe-bottom));
+    overflow-y: visible;
+    overflow-x: hidden;
+    align-items: stretch;
   }
 
-  /* ── Hide desktop bento grid on mobile (mSection in mobile.module.css takes over) ── */
-  .bentoGrid {
-    display: none;
+  .subpageContainer {
+    gap: 0;
+    max-width: 100%;
   }
 
-  /* ── Top bar: always show on mobile (subpageWrapper hidden but topBar shown via position:fixed) ── */
+  /* ── Top bar ── */
   .topBar {
     padding: 0.75rem 1rem;
     background: rgba(5, 5, 7, 0.95);
     border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
+  /* ── Back button: show short text, hide long text ── */
+  .backBtnDesktopText {
+    display: none;
+  }
+  .backBtnMobileText {
+    display: inline;
+  }
   .backBtn {
     font-size: 0.8rem;
     min-height: 44px;
-    min-width: 44px;
-    display: inline-flex;
-    align-items: center;
   }
 
   .pageLabel {
     font-size: 0.65rem;
   }
 
-  /* All buttons must have min 48px tap target */
+  /* ── Desktop header: hidden on mobile ── */
+  .desktopHeader {
+    display: none !important;
+  }
+
+  /* ── Desktop bento grid: hidden on mobile ── */
+  .bentoGrid {
+    display: none !important;
+  }
+
+  /* ── Tap targets ── */
   .primaryButton {
     min-height: 48px;
     padding: 0.9rem 1.5rem;
     font-size: 0.9rem;
   }
 
-  /* Bento grid collapse */
+  /* ── Bento col spans (safety, though bentoGrid is hidden) ── */
   .colSpan4,
   .colSpan6,
   .colSpan8,
