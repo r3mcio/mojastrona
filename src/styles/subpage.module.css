@@ -191,11 +191,51 @@
 @media (max-width: 1024px) {
   .colSpan4, .colSpan8 { grid-column: span 6; }
 }
+
 @media (max-width: 768px) {
-  .colSpan4, .colSpan6, .colSpan8 { grid-column: span 12; }
-  .topBar { padding: 1rem 1.25rem; }
-  .subpageWrapper { padding-top: 6rem; padding-inline: 1.5rem; }
-  .glassPanel { padding: var(--space-xl) var(--space-lg); }
+  /* ── Hide desktop layout, show mobile version via mobile.module.css ── */
+  .subpageWrapper {
+    display: none;
+  }
+
+  /* ── Hide desktop bento grid on mobile (mSection in mobile.module.css takes over) ── */
+  .bentoGrid {
+    display: none;
+  }
+
+  /* ── Top bar: always show on mobile (subpageWrapper hidden but topBar shown via position:fixed) ── */
+  .topBar {
+    padding: 0.75rem 1rem;
+    background: rgba(5, 5, 7, 0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .backBtn {
+    font-size: 0.8rem;
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .pageLabel {
+    font-size: 0.65rem;
+  }
+
+  /* All buttons must have min 48px tap target */
+  .primaryButton {
+    min-height: 48px;
+    padding: 0.9rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Bento grid collapse */
+  .colSpan4,
+  .colSpan6,
+  .colSpan8,
+  .colSpan12 {
+    grid-column: span 12;
+  }
 }
 
 /* ── Focus Buttons & Highlights ── */

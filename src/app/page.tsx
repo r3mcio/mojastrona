@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import ParticleBackground from "@/components/ParticleBackground";
 import CentralBrand from "@/components/CentralBrand";
 import Carousel from "@/components/Carousel";
+import MobileHome from "@/components/MobileHome";
 
 const SECTIONS_MAP: Record<string, number> = {
   webdev: 0,
@@ -16,16 +17,43 @@ const SECTIONS_MAP: Record<string, number> = {
   contact: 4,
 };
 
+/**
+ * Returns true when hook runs in a mobile-width environment.
+ * Uses matchMedia on the client so it never breaks SSR.
+ */
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  return isMobile;
+}
+
 function HomeContent() {
   const searchParams = useSearchParams();
   const sectionQuery = searchParams.get("section");
-  const initialSection = sectionQuery && SECTIONS_MAP[sectionQuery] !== undefined ? SECTIONS_MAP[sectionQuery] : undefined;
+  const initialSection =
+    sectionQuery && SECTIONS_MAP[sectionQuery] !== undefined
+      ? SECTIONS_MAP[sectionQuery]
+      : undefined;
 
   const [targetSection, setTargetSection] = useState<number | undefined>(initialSection);
   const [introPhase, setIntroPhase] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    // Jeżeli wracamy na stronę (jest parametr query), przyspieszmy intro żeby nie kazać na nowo czekać
+    // Na mobile nie ma intro animation
+    if (isMobile) {
+      setIntroPhase(2);
+      return;
+    }
     const isReturning = !!initialSection;
     if (isReturning) {
       setIntroPhase(2);
@@ -38,7 +66,7 @@ function HomeContent() {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, [initialSection]);
+  }, [initialSection, isMobile]);
 
   const handleContactClick = useCallback(() => {
     setTargetSection(4);
@@ -48,6 +76,12 @@ function HomeContent() {
     setTargetSection(index);
   }, []);
 
+  // ── Mobile layout ──
+  if (isMobile) {
+    return <MobileHome />;
+  }
+
+  // ── Desktop layout ──
   return (
     <main>
       <ParticleBackground />
@@ -91,7 +125,11 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div style={{ backgroundColor: "#050507", width: "100vw", height: "100vh" }}></div>}>
+    <Suspense
+      fallback={
+        <div style={{ backgroundColor: "#050507", width: "100vw", height: "100vh" }} />
+      }
+    >
       <HomeContent />
     </Suspense>
   );

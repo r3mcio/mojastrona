@@ -1,0 +1,719 @@
+/* ═══════════════════════════════════════════════════════
+   MOBILE INTERFACE — Kamil Libigocki Portfolio
+   Dedykowany interfejs dla urządzeń mobilnych (≤ 768px)
+   ═══════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════
+   MOBILE HOME — Hero
+══════════════════════════════════ */
+
+.mobileWrapper {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    width: 100vw;
+    background: var(--bg-primary);
+    position: relative;
+    overflow-x: hidden;
+    padding-top: calc(4rem + var(--safe-top));
+    padding-bottom: calc(5.5rem + var(--safe-bottom));
+  }
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 2rem 1.5rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.heroEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.heroEyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--text-muted);
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 10vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  background: linear-gradient(145deg, #ffffff 0%, #a0aec0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 320px;
+  margin-bottom: 1.75rem;
+}
+
+.heroActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.3), rgba(244, 63, 94, 0.15));
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  color: #fb7185;
+  padding: 0.85rem 1.5rem;
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  min-height: 48px;
+  box-shadow: 0 0 30px rgba(244, 63, 94, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroCta:active {
+  transform: scale(0.97);
+}
+
+.heroCtaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 0.85rem 1.5rem;
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  min-height: 48px;
+}
+
+.heroCtaSecondary:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient glow behind hero */
+.heroGlow {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes heroGlowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ══════════════════════════════════
+   SEKCJA KART
+══════════════════════════════════ */
+
+.sectionTitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cardsScroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0 1.25rem;
+}
+
+/* ── Individual mobile card ── */
+.mCard {
+  background: linear-gradient(145deg, rgba(15, 15, 22, 0.8) 0%, rgba(8, 8, 14, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.mCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+
+.mCard:active {
+  transform: scale(0.98);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* ── Card header row ── */
+.mCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mCardIconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mCardLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Card content ── */
+.mCardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.mCardDesc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Card CTA row ── */
+.mCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.mCardLink {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.2s ease;
+}
+
+.mCard:active .mCardLink {
+  gap: 0.6rem;
+}
+
+/* ── Colored left accent bar ── */
+.mCardAccent {
+  position: absolute;
+  left: 0; top: 16px; bottom: 16px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Section-specific color accents */
+.accentWebdev { background: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,0.5); }
+.accentAi     { background: #8b5cf6; box-shadow: 0 0 12px rgba(139,92,246,0.5); }
+.accentProjects { background: #10b981; box-shadow: 0 0 12px rgba(16,185,129,0.5); }
+.accentAbout  { background: #06b6d4; box-shadow: 0 0 12px rgba(6,182,212,0.5); }
+.accentContact { background: #f43f5e; box-shadow: 0 0 12px rgba(244,63,94,0.5); }
+
+/* Card-specific glass tints */
+.tintWebdev  { border-color: rgba(59,130,246,0.18); background: linear-gradient(145deg, rgba(59,130,246,0.07) 0%, rgba(8,8,14,0.5) 100%); }
+.tintAi      { border-color: rgba(139,92,246,0.18); background: linear-gradient(145deg, rgba(139,92,246,0.07) 0%, rgba(8,8,14,0.5) 100%); }
+.tintProjects { border-color: rgba(16,185,129,0.18); background: linear-gradient(145deg, rgba(16,185,129,0.07) 0%, rgba(8,8,14,0.5) 100%); }
+.tintAbout   { border-color: rgba(6,182,212,0.18); background: linear-gradient(145deg, rgba(6,182,212,0.07) 0%, rgba(8,8,14,0.5) 100%); }
+.tintContact { border-color: rgba(244,63,94,0.18); background: linear-gradient(145deg, rgba(244,63,94,0.07) 0%, rgba(8,8,14,0.5) 100%); }
+
+/* ══════════════════════════════════
+   BOTTOM NAVIGATION
+══════════════════════════════════ */
+
+.bottomNav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .bottomNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(6, 6, 10, 0.88);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 0.5rem 0;
+    padding-bottom: calc(0.5rem + var(--safe-bottom));
+    align-items: stretch;
+    justify-content: space-around;
+  }
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0.4rem 0.6rem;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.navItem:active {
+  transform: scale(0.94);
+}
+
+.navItemActive {
+  color: var(--text-primary);
+}
+
+.navItemActive .navIcon {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.navDot {
+  position: absolute;
+  top: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.navItemActive .navDot {
+  opacity: 1;
+}
+
+.navIcon {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navItemActive .navIcon {
+  transform: scale(1.15) translateY(-1px);
+}
+
+/* ══════════════════════════════════
+   FLOATING CTA CALL BUTTON
+══════════════════════════════════ */
+
+/* Persistent call button visible on home and subpages */
+.floatCall {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Hide the bottom nav-level call button variant */
+  .floatCall {
+    display: none; /* handled inline in MobileNav via navItem */
+  }
+}
+
+/* ══════════════════════════════════
+   SUBPAGE MOBILE OVERRIDES
+══════════════════════════════════ */
+
+.mobileSubpageWrapper {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileSubpageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    padding-top: calc(3.5rem + var(--safe-top));
+    padding-bottom: calc(5.5rem + var(--safe-bottom));
+    background: var(--bg-primary);
+    overflow-x: hidden;
+  }
+}
+
+.subpageHero {
+  padding: 1.75rem 1.5rem 1.25rem;
+  position: relative;
+}
+
+.subpageHeroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 9vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  background: linear-gradient(145deg, #ffffff 0%, #8a92a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+.subpageHeroTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -0.4rem;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color, #3b82f6), transparent);
+  border-radius: 2px;
+}
+
+.subpageHeroSubtitle {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ── Mobile subpage content sections  ── */
+.mSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.mPanel {
+  background: linear-gradient(145deg, rgba(15,15,22,0.75) 0%, rgba(8,8,14,0.55) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.mPanel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.mPanel h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.mPanel p {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.mPanel p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Stack of feature rows ── */
+.mFeatureRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.mFeatureRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.mFeatureIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mFeatureText h4 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.mFeatureText p {
+  margin-bottom: 0;
+  font-size: 0.83rem;
+}
+
+/* ── Tag chips ── */
+.mTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.mTag {
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* ── Primary action button ── */
+.mBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: 14px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  min-height: 48px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+}
+
+.mBtn:active {
+  transform: scale(0.97);
+}
+
+/* ── Contact-specific: big call CTA ── */
+.bigCallBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  padding: 1.25rem 2rem;
+  border-radius: 20px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 64px;
+  transition: all 0.25s ease;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(244,63,94,0.35) 0%, rgba(244,63,94,0.15) 100%);
+  border: 1px solid rgba(244,63,94,0.5);
+  box-shadow: 0 0 40px rgba(244,63,94,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.bigCallBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(244,63,94,0.1) 0%, transparent 100%);
+  animation: callPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes callPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.bigCallBtn:active {
+  transform: scale(0.97);
+}
+
+/* ── Form styles ── */
+.mForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mFormGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mFormLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.mFormInput {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem; /* Prevent iOS zoom (must be ≥ 16px renders at 1rem on base 16px) */
+  transition: all 0.2s ease;
+  width: 100%;
+  min-height: 48px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mFormInput:focus {
+  outline: none;
+  border-color: rgba(244,63,94,0.5);
+  background: rgba(0,0,0,0.45);
+  box-shadow: 0 0 0 3px rgba(244,63,94,0.1);
+}
+
+.mFormInput::placeholder {
+  color: rgba(255,255,255,0.15);
+}
+
+.mFormTextarea {
+  resize: none;
+  min-height: 120px;
+}
+
+/* ── Project card mobile ── */
+.mProjectCard {
+  background: linear-gradient(145deg, rgba(15,15,22,0.8) 0%, rgba(8,8,14,0.6) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mProjectThumb {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.mProjectBody {
+  padding: 1.25rem;
+}
+
+.mProjectType {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.mProjectTitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.mProjectDesc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
