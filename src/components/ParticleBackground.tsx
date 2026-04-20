@@ -2,6 +2,48 @@
 
 import { useEffect, useRef } from "react";
 
+class Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  opacity: number;
+  opacityDir: number;
+
+  constructor(w: number, h: number) {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.vx = (Math.random() - 0.5) * 0.15;
+    this.vy = (Math.random() - 0.5) * 0.15;
+    this.size = Math.random() * 1.5 + 0.5;
+    this.opacity = Math.random() * 0.3 + 0.05;
+    this.opacityDir = Math.random() > 0.5 ? 0.001 : -0.001;
+  }
+
+  update(w: number, h: number) {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.opacity += this.opacityDir;
+
+    if (this.opacity > 0.35 || this.opacity < 0.02) {
+      this.opacityDir *= -1;
+    }
+
+    if (this.x < 0) this.x = w;
+    if (this.x > w) this.x = 0;
+    if (this.y < 0) this.y = h;
+    if (this.y > h) this.y = 0;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200, 220, 255, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -19,48 +61,6 @@ export default function ParticleBackground() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      opacityDir: number;
-
-      constructor(w: number, h: number) {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.vx = (Math.random() - 0.5) * 0.15;
-        this.vy = (Math.random() - 0.5) * 0.15;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.opacity = Math.random() * 0.3 + 0.05;
-        this.opacityDir = Math.random() > 0.5 ? 0.001 : -0.001;
-      }
-
-      update(w: number, h: number) {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.opacity += this.opacityDir;
-
-        if (this.opacity > 0.35 || this.opacity < 0.02) {
-          this.opacityDir *= -1;
-        }
-
-        if (this.x < 0) this.x = w;
-        if (this.x > w) this.x = 0;
-        if (this.y < 0) this.y = h;
-        if (this.y > h) this.y = 0;
-      }
-
-      draw(ctx: CanvasRenderingContext2D) {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 220, 255, ${this.opacity})`;
-        ctx.fill();
-      }
-    }
 
     const init = () => {
       resize();

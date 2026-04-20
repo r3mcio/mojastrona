@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "@/styles/carousel.module.css";
 import cardStyles from "@/styles/cards.module.css";
-import { Globe, Brain, FolderOpen, User, Mail } from "lucide-react";
 
 /* ── Section data ── */
 interface Section {
@@ -16,7 +16,7 @@ interface Section {
   subtitle: string;
   gradient: string;
   glowColor: string;
-  icon: React.ReactNode;
+  icon: string;
 }
 
 const SECTIONS: Section[] = [
@@ -28,7 +28,7 @@ const SECTIONS: Section[] = [
       "Projektuję i tworzę nowoczesne strony internetowe, które łączą estetykę z wydajnością. Od landing page'ów po zaawansowane aplikacje webowe.",
     gradient: cardStyles.gradientWebdev,
     glowColor: "#3b82f6",
-    icon: <Globe size={120} strokeWidth={0.5} />,
+    icon: "/assets/tiles/webdev-nobg.png",
   },
   {
     id: "ai",
@@ -38,7 +38,7 @@ const SECTIONS: Section[] = [
       "Tworzę wyspecjalizowane modele AI dopasowane do potrzeb przedsiębiorstw — od asystentów dla prawników po systemy analityczne dla księgowych.",
     gradient: cardStyles.gradientAi,
     glowColor: "#8b5cf6",
-    icon: <Brain size={120} strokeWidth={0.5} />,
+    icon: "/assets/tiles/ai-nobg.png",
   },
   {
     id: "projects",
@@ -48,7 +48,7 @@ const SECTIONS: Section[] = [
       "Portfolio zrealizowanych projektów webowych i rozwiązań AI. Każdy projekt to unikalne wyzwanie i świeże podejście.",
     gradient: cardStyles.gradientProjects,
     glowColor: "#10b981",
-    icon: <FolderOpen size={120} strokeWidth={0.5} />,
+    icon: "/assets/tiles/projects-nobg.png",
   },
   {
     id: "about",
@@ -58,7 +58,7 @@ const SECTIONS: Section[] = [
       "19 lat, pasja do technologii i nieustanny rozwój. Poznaj mnie, mój stack i drogę, którą przeszedłem.",
     gradient: cardStyles.gradientAbout,
     glowColor: "#06b6d4",
-    icon: <User size={120} strokeWidth={0.5} />,
+    icon: "",
   },
   {
     id: "contact",
@@ -68,7 +68,7 @@ const SECTIONS: Section[] = [
       "Masz pomysł na projekt? Porozmawiajmy. Chętnie pomogę przekuć Twoją wizję w rzeczywistość.",
     gradient: cardStyles.gradientContact,
     glowColor: "#f43f5e",
-    icon: <Mail size={120} strokeWidth={0.5} />,
+    icon: "/assets/tiles/contact_phone_nobg.png",
   },
 ];
 
@@ -78,32 +78,29 @@ interface CarouselProps {
 
 export default function Carousel({ externalIndex }: CarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
   const total = SECTIONS.length;
 
   // Handle external navigation
   useEffect(() => {
     if (externalIndex !== undefined) {
-      setActiveIndex(externalIndex);
+      const t = setTimeout(() => setActiveIndex(externalIndex), 0);
+      return () => clearTimeout(t);
     }
   }, [externalIndex]);
 
   const goTo = useCallback(
     (index: number) => {
       if (index === activeIndex) return;
-      setDirection(index > activeIndex ? 1 : -1);
       setActiveIndex(index);
     },
     [activeIndex]
   );
 
   const goNext = useCallback(() => {
-    setDirection(1);
     setActiveIndex((prev) => (prev + 1) % total);
   }, [total]);
 
   const goPrev = useCallback(() => {
-    setDirection(-1);
     setActiveIndex((prev) => (prev - 1 + total) % total);
   }, [total]);
 
@@ -196,7 +193,8 @@ export default function Carousel({ externalIndex }: CarouselProps) {
     return {
       x: xPos,
       scale: isActive ? 1 : Math.max(0.78 - (absOffset - 1) * 0.06, 0.6),
-      opacity: isActive ? 1 : Math.max(0.45 - (absOffset - 1) * 0.15, 0.1),
+      opacity: isActive ? 1 : Math.max(0.3 - (absOffset - 1) * 0.15, 0.05),
+      filter: isActive ? "blur(0px)" : `blur(${Math.min(absOffset * 3, 10)}px)`,
       zIndex: 10 - absOffset,
       rotateY: offset * -2,
     };
@@ -251,6 +249,7 @@ export default function Carousel({ externalIndex }: CarouselProps) {
                   opacity: cardStyle.opacity,
                   rotateY: cardStyle.rotateY,
                   zIndex: cardStyle.zIndex,
+                  filter: cardStyle.filter,
                 }}
                 transition={{
                   duration: 0.6,
@@ -265,13 +264,31 @@ export default function Carousel({ externalIndex }: CarouselProps) {
                   {/* Background gradient */}
                   <div className={`${cardStyles.cardBg} ${section.gradient}`} />
 
+                  {/* Dots grid top left */}
+                  <div className={cardStyles.dotsGrid}>
+                    {[...Array(20)].map((_, idx) => (
+                      <div key={idx} className={cardStyles.dot} />
+                    ))}
+                  </div>
+
                   {/* Number watermark */}
                   <span className={cardStyles.cardNumber}>
-                    {String(i + 1).padStart(2, "0")}
+                    0{i + 1}
                   </span>
 
                   {/* Icon */}
-                  <div className={cardStyles.cardIcon}>{section.icon}</div>
+                  {section.icon && (
+                    <div className={cardStyles.cardImageWrapper}>
+                      <Image
+                        src={section.icon}
+                        alt={section.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ objectFit: 'contain' }}
+                        className={cardStyles.cardImage}
+                      />
+                    </div>
+                  )}
 
                   {/* Content */}
                   <div className={cardStyles.cardContent}>

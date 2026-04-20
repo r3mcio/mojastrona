@@ -5,11 +5,10 @@ import Link from "next/link";
 import styles from "@/styles/navbar.module.css";
 
 interface NavbarProps {
-  onContactClick: () => void;
   onSectionClick: (index: number) => void;
 }
 
-export default function Navbar({ onContactClick, onSectionClick }: NavbarProps) {
+export default function Navbar({ onSectionClick }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);

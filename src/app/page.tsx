@@ -26,11 +26,14 @@ function useIsMobile() {
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mq.matches);
+    const t = setTimeout(() => setIsMobile(mq.matches), 0);
 
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    return () => {
+      clearTimeout(t);
+      mq.removeEventListener("change", handler);
+    };
   }, []);
 
   return isMobile;
@@ -50,14 +53,10 @@ function HomeContent() {
 
   useEffect(() => {
     // Na mobile nie ma intro animation
-    if (isMobile) {
-      setIntroPhase(2);
-      return;
-    }
     const isReturning = !!initialSection;
-    if (isReturning) {
-      setIntroPhase(2);
-      return;
+    if (isMobile || isReturning) {
+      const t0 = setTimeout(() => setIntroPhase(2), 0);
+      return () => clearTimeout(t0);
     }
 
     const t1 = setTimeout(() => setIntroPhase(1), 300);
@@ -67,10 +66,6 @@ function HomeContent() {
       clearTimeout(t2);
     };
   }, [initialSection, isMobile]);
-
-  const handleContactClick = useCallback(() => {
-    setTargetSection(4);
-  }, []);
 
   const handleSectionClick = useCallback((index: number) => {
     setTargetSection(index);
@@ -92,7 +87,6 @@ function HomeContent() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <Navbar
-          onContactClick={handleContactClick}
           onSectionClick={handleSectionClick}
         />
       </motion.div>
